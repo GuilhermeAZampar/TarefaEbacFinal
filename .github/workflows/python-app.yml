@@ -28,14 +28,16 @@ jobs:
         run: pip install poetry
 
       - name: Instalar dependencias
-        run: poetry install --no-root
+        run: |
+          cd TAREFAFINALEBAC
+          poetry install --no-root
 
       - name: Rodar testes
         run: |
-          cd TarefaFinalEbac
+          cd TAREFAFINALEBAC
           poetry run pytest
 
       - name: Build Docker
         run: |
-          cd TarefaFinalEbac
+          cd TAREFAFINALEBAC
           docker build -t pokemon-api .
