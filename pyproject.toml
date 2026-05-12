@@ -1,0 +1,26 @@
+[project]
+name = "tarefafinalebac"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Guilherme Zampar",email = "guilhermezampar90@gmail.com"}
+]
+
+requires-python = ">=3.12"
+
+dependencies = [
+    "fastapi[standard] (>=0.136.1,<0.137.0)",
+    "sqlalchemy (>=2.0.49,<3.0.0)",
+    "redis (>=7.4.0,<8.0.0)",
+    "python-dotenv (>=1.2.2,<2.0.0)",
+    "uvicorn (>=0.46.0,<0.47.0)"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pytest (>=9.0.3,<10.0.0)"
+]
