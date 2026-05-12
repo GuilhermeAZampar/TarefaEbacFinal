@@ -31,7 +31,11 @@ jobs:
         run: poetry install --no-root
 
       - name: Rodar testes
-        run: poetry run pytest
+        run: |
+          cd TarefaFinalEbac
+          poetry run pytest
 
       - name: Build Docker
-        run: docker build -t pokemon-api .
+        run: |
+          cd TarefaFinalEbac
+          docker build -t pokemon-api .
