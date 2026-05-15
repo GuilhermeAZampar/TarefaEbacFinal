@@ -14,7 +14,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session,sessionmaker
 
 DATABASE_URL=os.getenv("DATABASE_URL")
-engine=create_engine(DATABASE_URL,connect_args={"check_same_thread":False})
+engine=create_engine(DATABASE_URL)
 SessionLocal=sessionmaker(autocommit=False,autoflush=False,bind=engine)
 Base=declarative_base()
 
@@ -85,10 +85,19 @@ def listar_pokemons_redis():
     return pokemons
 
 
+@app.get("/filtar/{id_pokemon}")
+def filtar_um_pokemon(id_pokemon:int,db:Session=Depends(sessao_db)):
+    pokemon=db.query(PokemonDB).filter(PokemonDB.id_pokemon==id_pokemon).first()
+    if not pokemon:
+        raise HTTPException(status_code=404,detail="Pokemon nao encontrado")
+    
+    return pokemon
+
+
 @app.get("/pokemons")
 def listar_pokemons(page:int=1,limit:int=10,db:Session=Depends(sessao_db)):
     if page<1 or limit <1:
-        raise HTTPException(status_code=401,detail="Erro de paginacao")
+        raise HTTPException(status_code=400,detail="Erro de paginacao")
     
     cache_key=f"pokemon:page={page}&limit={limit}"
     cached=redis_client.get(cache_key)
