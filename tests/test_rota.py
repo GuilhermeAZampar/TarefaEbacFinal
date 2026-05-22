@@ -82,7 +82,7 @@ def test_adicionar(db,mocker_redis):
     assert response.status_code==200
 
 def test_atualizar(db,mocker_redis):
-    response = client.put("/atualizar/1",json={"nome_pokemon":"Kyogre", "tipo_pokemon":"Lendario", "nivel_pokemon":200 })
+    response = client.put("/atualizar_nivel/1",json={"nivel_pokemon":200 })
     assert response.status_code == 200
 
 
